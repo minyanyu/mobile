@@ -21,6 +21,7 @@
 
 <script>
 import { login } from '@/api/user'
+console.log(login)
 export default {
   data () {
     return {
@@ -33,10 +34,12 @@ export default {
   methods: {
     async login () {
       try {
-        let res = await login(this.user)
-        console.log(res)
+        const res = await login(this.user)
+        this.$toast.success('登录成功')
+        this.$router.push('/')
+        this.$store.commit('setUser', res)
       } catch (error) {
-        console.log(error)
+        this.$toast.fail('登陆失败')
       }
     }
   }
